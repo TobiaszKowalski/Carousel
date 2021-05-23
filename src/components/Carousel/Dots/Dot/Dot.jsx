@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 
 const SingleDot = styled.span`
@@ -19,6 +19,6 @@ const Dot = (props) => {
     return (
         <SingleDot active={props.active} index={props.index} onClick={handleClick}/>
     )
-}
+};
 
 export default Dot
