@@ -48,8 +48,8 @@ const Carousel = (props) => {
 
     let absolute = false;
     let alpha = null;
-    let beta  = null;
-    let gamma =null;
+    let beta = null;
+    let gamma = null;
   
     if (e.absolute !== absolute || e.alpha !== alpha || e.beta !== beta || e.gamma !== gamma) {
      resize();
@@ -129,24 +129,24 @@ const Carousel = (props) => {
 //Swipe logic
 
   const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX)
+    setTouchStart(e.targetTouches[0].clientX);
   };
 
 
   const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX)
+    setTouchEnd(e.targetTouches[0].clientX);
     let diff = touchStart - touchEnd;
     if (diff > 0 && (state.activeItem * state.itemWidth) <= contentWidth) {
         setState({
             ...state,
             translate: diff + state.activeItem * state.itemWidth,
-        })
+        });
     }
     else if (diff < 0 && (state.activeItem * state.itemWidth) >= 0) {
         setState({
             ...state,
             translate: diff + state.activeItem * state.itemWidth,
-        })
+        });
     }
   };
 
