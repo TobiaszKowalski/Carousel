@@ -7,7 +7,8 @@
     "start": "webpack serve",
     "build": "webpack --config webpack.config.js",
     "build:prod": "webpack --config webpack.prod.config.js",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build:prod"
   },
   "author": "",
   "license": "ISC",
