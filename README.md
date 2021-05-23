@@ -26,3 +26,4 @@ npm start
 ```
 npm run deploy
 ```
+To deploy, you must have a repository on GitHub
