@@ -26,10 +26,9 @@ const Carousel = (props) => {
     translate: 0,
     activeItem: 0,
     itemWidth: 490,
-    touchStart: 0,
-    touchEnd: 0
-  })
-
+  });
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
   const contentWidth = state.itemWidth * (props.content.length - 1);
 
 //Responsive sizing logic
@@ -47,13 +46,13 @@ const Carousel = (props) => {
 
   const handleOrientation = (e) => {
 
-    let absolute = e.absolute;
-    let alpha = e.alpha;
-    let beta  = e.beta;
-    let gamma = e.gamma;
+    let absolute = false;
+    let alpha = null;
+    let beta  = null;
+    let gamma =null;
   
     if (e.absolute !== absolute || e.alpha !== alpha || e.beta !== beta || e.gamma !== gamma) {
-     return resize();
+     resize();
     };
     return;
   };
@@ -130,21 +129,29 @@ const Carousel = (props) => {
 //Swipe logic
 
   const handleTouchStart = (e) => {
-    setState({
-      ...state,
-      touchStart: e.targetTouches[0].clientX
-    });
+    setTouchStart(e.targetTouches[0].clientX)
   };
 
+
   const handleTouchMove = (e) => {
-    setState({
-      ...state,
-      touchEnd: e.targetTouches[0].clientX
-    });
+    setTouchEnd(e.targetTouches[0].clientX)
+    let diff = touchStart - touchEnd;
+    if (diff > 0 && (state.activeItem * state.itemWidth) <= contentWidth) {
+        setState({
+            ...state,
+            translate: diff + state.activeItem * state.itemWidth,
+        })
+    }
+    else if (diff < 0 && (state.activeItem * state.itemWidth) >= 0) {
+        setState({
+            ...state,
+            translate: diff + state.activeItem * state.itemWidth,
+        })
+    }
   };
 
   const handleTouchEnd = () => {
-    let diff = state.touchStart - state.touchEnd;
+    let diff = touchStart - touchEnd;
       if (diff > 0 && ((state.activeItem + 1) * state.itemWidth) <= contentWidth) {
         setState({
             ...state,
