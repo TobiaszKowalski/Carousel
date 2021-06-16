@@ -46,10 +46,10 @@ const Carousel = (props) => {
 
   const handleOrientation = (e) => {
 
-    let absolute = false;
-    let alpha = null;
-    let beta = null;
-    let gamma = null;
+    const absolute = false;
+    const alpha = null;
+    const beta = null;
+    const gamma = null;
   
     if (e.absolute !== absolute || e.alpha !== alpha || e.beta !== beta || e.gamma !== gamma) {
      resize();
@@ -135,7 +135,7 @@ const Carousel = (props) => {
 
   const handleTouchMove = (e) => {
     setTouchEnd(e.targetTouches[0].clientX);
-    let diff = touchStart - touchEnd;
+    const diff = touchStart - touchEnd;
     if (diff > 0 && (state.activeItem * state.itemWidth) <= contentWidth) {
         setState({
             ...state,
@@ -151,7 +151,7 @@ const Carousel = (props) => {
   };
 
   const handleTouchEnd = () => {
-    let diff = touchStart - touchEnd;
+    const diff = touchStart - touchEnd;
       if (diff > 0 && ((state.activeItem + 1) * state.itemWidth) <= contentWidth) {
         setState({
             ...state,
