@@ -17,6 +17,9 @@ const Item = (props) => {
          onTouchStart={props.handleTouchStart}
          onTouchMove={props.handleTouchMove}
          onTouchEnd={props.handleTouchEnd}
+         onMouseDown={props.handleClickStart}
+         onMouseMove={props.handleClickMove}
+         onMouseUp={props.handleClickEnd}
          />
     );
 };
