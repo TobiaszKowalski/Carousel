@@ -133,29 +133,55 @@ const Carousel = (props) => {
       if (diff < 0 && ((activeItem - 1) * itemWidth) >= 0) {
           setTranslate((activeItem - 1) * itemWidth);
           setActiveItem(activeItem === 0 ? props.content.length - 1 : activeItem - 1);
-      } else if (diff < 0 && ((state.activeItem - 1) * state.itemWidth) <= 0) {
+      } else if (diff < 0 && ((activeItem - 1) * itemWidth) <= 0) {
         setTranslate(contentWidth);
         setActiveItem(activeItem === 0 ? props.content.length - 1 : activeItem - 1);
       };
   };
 
+
   const handleClickStart = (e) => {
+    e.preventDefault();
     setClickStart(e.clientX);
     setDidDown(true)
   };
 
 
   const handleClickMove = (e) => {
+    e.preventDefault();
     setClickEnd(e.clientX);
     if (!didDown) {
       return
+    } else {
+      const diff = clickStart - clickEnd;
+      if (diff > 0 && (activeItem * itemWidth) <= contentWidth) {
+          setTranslate(diff + activeItem * itemWidth);
+      } else
+      if (diff < 0 && (activeItem * itemWidth) >= 0) {
+          setTranslate(diff + activeItem * itemWidth);
+      };
     }
-
+    setDidDown(false)
   };
 
   const handleClickEnd = () => {
-    setDidDown(false)
-
+    if (didDown === false) {
+      const diff = clickStart - clickEnd;
+      if (diff > 0 && ((activeItem + 1) * itemWidth) <= contentWidth) {
+        setTranslate((activeItem + 1) * itemWidth);
+        setActiveItem(activeItem === props.content.length - 1 ? 0 : activeItem + 1);
+      } else {
+        setTranslate(0);
+        setActiveItem(activeItem === props.content.length - 1 ? 0 : activeItem + 1);
+      };
+      if (diff < 0 && ((activeItem - 1) * itemWidth) >= 0) {
+          setTranslate((activeItem - 1) * itemWidth);
+          setActiveItem(activeItem === 0 ? props.content.length - 1 : activeItem - 1);
+      } else if (diff < 0 && ((activeItem - 1) * itemWidth) <= 0) {
+        setTranslate(contentWidth);
+        setActiveItem(activeItem === 0 ? props.content.length - 1 : activeItem - 1);
+      };
+    } else {return}
   };
 
   return (
@@ -166,6 +192,7 @@ const Carousel = (props) => {
                 content={image.imgUrl}
                 translate={translate}
                 itemWidth={itemWidth}
+                didDown={didDown}
                 handleTouchStart={handleTouchStart}
                 handleTouchMove={handleTouchMove}
                 handleTouchEnd={handleTouchEnd}
